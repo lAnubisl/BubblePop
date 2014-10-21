@@ -1,0 +1,46 @@
+<html>
+	<style>
+		img {cursor:pointer;}
+	</style>
+	<body style="background-color:black;margin:0px;">
+	</body>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="ion.sound.min.js"></script>
+	<script type="text/javascript">
+		function initSounds() {
+			$(document).on('click', 'img', function () {
+				ion.sound.play("pop")
+			});
+			ion.sound({
+				sounds: [
+					{
+						name: "pop"
+					}
+				],
+				preload: true
+			});
+		}
+		$(document).ready(function() {
+			initSounds();
+			var height = document.body.clientHeight ;
+			var width = document.body.clientWidth - 15;
+			var bubblesXCount = parseInt(width / 36, 10);
+			var bubblesYCount = parseInt(height / 36, 10);
+			for (var i = 1; i <= bubblesYCount; i++)
+			{
+				var div = document.createElement("div");
+				div.style["minWidth"] = width;
+				if(i%2 == 0){
+					div.style["marginLeft"] = 15;
+				}
+				for (var j = 1; j <= bubblesXCount; j++)
+				{
+					var bubble = document.createElement("img");
+					bubble.src = "bubble-" + Math.floor((Math.random() * 4) + 1) +".png";
+					$(div).append(bubble);
+				}
+				$("body").append(div);
+			}
+		});
+	</script>
+</html>
