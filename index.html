@@ -2,14 +2,17 @@
 	<style>
 		img {cursor:pointer;}
 	</style>
-	<body style="background-color:black;margin:0px;">
+	<body style="background-image:url('background.png');margin:0px;">
 	</body>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="ion.sound.min.js"></script>
 	<script type="text/javascript">
 		function initSounds() {
 			$(document).on('click', 'img', function () {
-				ion.sound.play("pop")
+				if (this.src.indexOf('_.png') == -1) {
+					ion.sound.play("pop");
+					this.src = getRandomBrokenBubble();
+				}	
 			});
 			ion.sound({
 				sounds: [
@@ -19,6 +22,12 @@
 				],
 				preload: true
 			});
+		}
+		function getRandomBrokenBubble() {
+			return "bubble-" + Math.floor((Math.random() * 2) + 1) +"_.png";
+		}
+		function getRandomUnbrokenBubble() {
+			return "bubble-" + Math.floor((Math.random() * 5) + 1) +".png";
 		}
 		$(document).ready(function() {
 			initSounds();
@@ -36,7 +45,7 @@
 				for (var j = 1; j <= bubblesXCount; j++)
 				{
 					var bubble = document.createElement("img");
-					bubble.src = "bubble-" + Math.floor((Math.random() * 4) + 1) +".png";
+					bubble.src = getRandomUnbrokenBubble();
 					$(div).append(bubble);
 				}
 				$("body").append(div);
